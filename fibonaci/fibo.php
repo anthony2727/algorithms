@@ -17,7 +17,7 @@ function fibo($maximumFibo){
    $sum =0;
    //loop
    for($i; $i<$maximumFibo; $i+=$j){
-        //is current fibo a even number?
+        //is current fibo an even number?
 	if($i%2==0)
 	   $sum+=$i;
 	$j=$i-$j;
