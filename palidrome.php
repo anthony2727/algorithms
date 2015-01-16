@@ -6,11 +6,22 @@
 
 
 function paliProduct ($digit){
-	$largest =  9 * pow(10, $digit);
-	$copy = $larges;
+	$largest =  pow(10, $digit) - 1;
+	$copy = $largest;
+	$max = 0;
 
-	
-
+	for($i=$largest; $i>0; $i--){
+		for($j=$copy; $j>0; $j--){
+			$product = $i * $j;
+			if (isPalidrome($product)){
+				if($product > $max){
+					$max = $product;
+				}
+			}
+			// echo 'is Palidrome: ' . $i .' * ' . $j . "\t\n";
+		}
+	}	
+	return $max;
 }
 
 function isPalidrome($number){
@@ -19,7 +30,7 @@ function isPalidrome($number){
 	while($number>0){
 		$nValue = $number%10;
 		$dev = $dev * 10 + $nValue;
-		echo $dev."\t\n";
+		// echo $dev."\t\n";
 		$number = (int)($number/10); //Normally, a floating point from a division. Casting to an int.
 		
 	}
@@ -28,4 +39,5 @@ function isPalidrome($number){
 	return false;
 }
 
-var_dump(isPalidrome(1001));
+echo paliProduct(3)."\t\n";
+
