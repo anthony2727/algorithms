@@ -39,5 +39,5 @@ function isPalidrome($number){
 	return false;
 }
 
-echo paliProduct(3)."\t\n";
+echo paliProduct(4)."\t\n";
 

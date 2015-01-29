@@ -14,11 +14,6 @@ function countDays($dateInString){
 		print $days;
 		
 	}
-
-
-
-	
-
 }
 
 countDays("02.01.2015");
