@@ -1,5 +1,8 @@
 <?php 
 
+// Solution for the Palindrome problem 
+// Best solution using the strrev() function.
+// AUTHOR: Anthony Rodriguez
 
 function isPal($w){
 
@@ -11,5 +14,5 @@ function isPal($w){
 	}
 	return false;	
 }
-$o ="ala alA";
-print isPal($o) ? "VICTOR MMG! \"$o\" is a Palindrome\t\n" : "shit, $o is not a fuckin Palindrome\t\n" ;
+$o ="olo Olo";
+print isPal($o) ? "\"$o\" is a Palindrome\t\n" : "\"$o\" is not a Palindrome\t\n" ;
