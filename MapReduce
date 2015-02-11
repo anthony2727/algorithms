@@ -1,0 +1,80 @@
+<?php
+
+//Author: Anthony Rodriguez
+//How to write your own version of MapReduce Recursively/Non-rec.
+
+$countWords = function($line){
+	return array_count_values(explode(" ", $line));
+};
+
+$lines = array("the life is a good life", "and only the life is worthy", "thanks for the life", "thanks God");
+
+//var_export(array_map($countWords, $lines));
+
+function myMap($combiner, $lines){
+	$out = array();
+	foreach($lines as $key=>$value)
+		$out[]=$combiner($value);
+	return $out;
+};
+
+//var_export(myMap($countWords, $lines));
+
+function strToArray($str, $deli=null){
+	return explode($deli, $str);
+}
+
+function sliceDown($lines){
+	array_shift($lines);
+	return $lines;
+};
+
+function getFirst($lines){
+	return empty($lines) ? null : $lines[0];
+};
+
+function transformer($current, $rest){
+	array_unshift($rest, $current);
+	return $rest;
+}
+
+function myMapRec($combiner, $lines){
+	if(empty($lines))
+		return array();
+	return transformer($combiner(getFirst($lines)), myMapRec($combiner, sliceDown($lines)));	
+};
+
+//var_export(myMapRec($countWords, $lines));
+
+$totalCount = function($w1, $w2){
+	$words = array_merge($w1, $w2);
+	$sum = array();
+	foreach($words as $key=>$value)
+		$sum[$key]= ((isset($w1[$key]) ? $w1[$key] : 0) + (isset($w2[$key]) ? $w2[$key] : 0));
+	
+	return $sum;
+	
+};
+//var_export(myMapRec($countWords, $lines));
+//var_export(array_reduce(myMapRec($countWords, $lines), $totalCount, array()));
+
+function myReduce($map, $combiner, $identity){
+	$out = array();
+	while(count($map)>1){
+		$w1 = array_shift($map);
+		$w2 = array_shift($map);
+		array_unshift($map, $combiner($w1,$w2));
+	}
+	return $map;
+};
+
+function myReduceRec($map, $combiner){
+	
+	if(count($map)<2){
+		return $map[0];
+	}
+	$w1 = array_shift($map);		
+	return $combiner($w1, myReduceRec($map, $combiner));
+};
+
+var_export(myReduceRec(myMapRec($countWords, $lines),$totalCount));
