@@ -67,7 +67,7 @@ function myReduce($map, $combiner, $identity){
 	}
 	return $map;
 };
-//Recursivex
+
 function myReduceRec($map, $combiner){
 	
 	if(count($map)<2){
